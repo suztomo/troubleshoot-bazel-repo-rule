@@ -17,10 +17,11 @@ jobs:
 
           set -eo pipefail
           set -x
+          git checkout -b test-pull-request-branch
           [ -z "`git config user.email`" ] && git config --global user.email "${USERNAME:-script}@google.com"
           [ -z "`git config user.name`" ] && git config --global user.name "${USERNAME:-script}"
           git add hello.txt
           git commit -a -m "added hello.txt from GitHub Actions"
-          gh pr create --head --title "Pull request from GitHub Actions" --body "This is test."
+          gh pr create --title "Pull request from GitHub Actions" --body "This is test."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
