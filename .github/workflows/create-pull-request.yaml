@@ -1,0 +1,20 @@
+name: Generate new GAPIC client library
+on:
+  workflow_dispatch:
+    inputs:
+      api_shortname:
+        required: true
+        type: string
+        description: "`api_shortname`: Name for the new directory name and (default) artifact name"
+jobs:
+  generate:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          echo  "api_shortname: ${{ github.event.inputs.api_shortname }}" > hello.txt
+      - run: |
+          git add hello.txt
+          git commit -a -m "added hello.txt from GitHub Actions"
+          gh pr create --title "Pull request from GitHub Actions" --body "This is test."
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
