@@ -1,4 +1,4 @@
-name: Generate new GAPIC client library
+name: Create a test pull request
 on:
   workflow_dispatch:
     inputs:
@@ -17,4 +17,5 @@ jobs:
           git add hello.txt
           git commit -a -m "added hello.txt from GitHub Actions"
           gh pr create --title "Pull request from GitHub Actions" --body "This is test."
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
