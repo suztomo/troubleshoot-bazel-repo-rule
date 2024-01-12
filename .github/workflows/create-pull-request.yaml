@@ -14,6 +14,8 @@ jobs:
       - run: |
           echo  "api_shortname: ${{ github.event.inputs.api_shortname }}" > hello.txt
       - run: |
+          [ -z "`git config user.email`" ] && git config --global user.email "${USERNAME:-script}@google.com"
+          [ -z "`git config user.name`" ] && git config --global user.name "${USERNAME:-script}"
           git add hello.txt
           git commit -a -m "added hello.txt from GitHub Actions"
           gh pr create --title "Pull request from GitHub Actions" --body "This is test."
