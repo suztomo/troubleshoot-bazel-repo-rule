@@ -22,6 +22,8 @@ jobs:
           [ -z "`git config user.name`" ] && git config --global user.name "${USERNAME:-script}"
           git add hello.txt
           git commit -a -m "added hello.txt from GitHub Actions"
-          gh pr create --title "Pull request from GitHub Actions" --body "This is test."
+          git push --set-upstream origin "${{ github.run_id }}-${{ github.run_attempt }}"
+          gh pr create --title "Pull request from GitHub Actions" --body "This is test." \
+              --head "${{ github.run_id }}-${{ github.run_attempt }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
